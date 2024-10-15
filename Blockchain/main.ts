@@ -1,4 +1,3 @@
-import {constants} from "./constants";
 import {ShymkivBlockchain} from "./blockchain";
 
 // Створення та використання блокчейну
