@@ -107,4 +107,21 @@ export class ShymkivBlockchain {
         console.log(`Кількість ітерацій PoW: ${proofOfWorkIterations}`);
         return { finalNonce: nonce, finalHash };
     }
+
+    getBalances(): Record<string, number> {
+        const balances: Record<string, number> = {};
+
+        // Проходимо по всіх блоках і їх транзакціях
+        this.chain.forEach((block) => {
+            block.transactions.forEach((tx) => {
+                if (!balances[tx.sender]) balances[tx.sender] = 0;
+                if (!balances[tx.recipient]) balances[tx.recipient] = 0;
+
+                if (tx.sender !== "Coinbase") balances[tx.sender] -= tx.amount; // Віднімаємо у відправника
+                balances[tx.recipient] += tx.amount; // Додаємо отримувачу
+            });
+        });
+
+        return balances;
+    }
 }

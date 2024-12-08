@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {ShymkivBlockchain} from "./src/services";
 import {constants} from "./src/core";
-import {addTransaction, getChain, mineBlock} from "./src/controllers";
+import {addTransaction, getBalances, getChain, getMempool, mineBlock} from "./src/controllers";
 
 const app = express();
 app.use(bodyParser.json()); // Для обробки JSON-запитів
@@ -11,9 +11,11 @@ app.use(bodyParser.json()); // Для обробки JSON-запитів
 app.get('/mine', mineBlock);
 app.post('/transactions/new', addTransaction);
 app.get('/chain', getChain);
+app.get('/balances', getBalances);
+app.get('/mempool', getMempool);
 
 // Запуск сервера
-const port = 5000;
+const port = 6000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 

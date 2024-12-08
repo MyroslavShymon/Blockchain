@@ -13,6 +13,18 @@ export const mineBlock = (req: Request, res: Response) => {
     }
 };
 
+//Виведення стану балансу
+export const getBalances = (req: Request, res: Response) => {
+    const balances = blockchainService.blockchain.getBalances();
+    return res.status(200).json(balances) as any;
+};
+
+// Отримання стану мемпулу
+export const getMempool = (req: Request, res: Response) => {
+    const mempool = blockchainService.blockchain["_currentTransactions"]; // Поточні транзакції
+    return res.status(200).json({ mempool }) as any;
+};
+
 
 // Додавання нової транзакції
 export const addTransaction = (req: Request, res: Response) => {
